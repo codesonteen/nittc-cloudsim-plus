@@ -88,7 +88,7 @@ public class DheaHomeAutomation {
      * @param args command line parameters
      */
     public static void main(String[] args) {
-        Log.setLevel(Level.TRACE);
+        Log.setLevel(Level.OFF);
 
         List<DheaHomeAutomation> simulationList = new ArrayList<>();
 
@@ -102,7 +102,7 @@ public class DheaHomeAutomation {
 
 
         String[] vmList = {"CCC", "HLES", "GLES"};
-        String[] schedulerList = {"CompletelyShared", "SpaceShared, SpaceSharedDropTimeOut", "TimeShared"};
+        String[] schedulerList = {"CompletelyFair", "SpaceShared", "SpaceSharedDropTimeOut", "TimeShared"};
 
         for(String scheduler : schedulerList){
             for(String vm : vmList){

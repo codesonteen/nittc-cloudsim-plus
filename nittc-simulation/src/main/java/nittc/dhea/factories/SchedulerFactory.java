@@ -14,7 +14,7 @@ public class SchedulerFactory {
             return new CloudletSchedulerSpaceShared();
         else if(name.equalsIgnoreCase("timeshared"))
             return new CloudletSchedulerTimeShared();
-        else if(name.equalsIgnoreCase("completelyshared"))
+        else if(name.equalsIgnoreCase("completelyfair"))
             return new CloudletSchedulerCompletelyFair();
         else
             return null;
