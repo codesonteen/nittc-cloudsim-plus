@@ -102,7 +102,7 @@ public class DheaHomeAutomation {
 
 
         String[] vmList = {"CCC", "HLES", "GLES"};
-        String[] schedulerList = {"CompletelyFair", "SpaceShared", "SpaceSharedDropTimeOut", "TimeShared"};
+        String[] schedulerList = {"CompletelyFair", "SpaceShared", "SpaceSharedDropTimeOut"};
 
         for(String scheduler : schedulerList){
             for(String vm : vmList){
