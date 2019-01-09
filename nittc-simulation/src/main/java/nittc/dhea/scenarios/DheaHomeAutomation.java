@@ -166,7 +166,7 @@ public class DheaHomeAutomation {
 
     private void printResults() {
         //new CloudletsTableBuilder(broker.getCloudletFinishedList()).build();
-        new DheaResultTableBuilder(broker.getCloudletCreatedList()).build();
+        //new DheaResultTableBuilder(broker.getCloudletCreatedList()).build();
         //new CloudletsTableBuilder(broker.getCloudletCreatedList()).build();
 
         List<Cloudlet> cloudletFinishedList = broker.getCloudletFinishedList();
