@@ -101,8 +101,8 @@ public class DheaHomeAutomation {
         }
 
 
-        String[] vmList = {"CCC", "HLES"};
-        String[] schedulerList = {"SpaceShared", "CompletelyShared"};
+        String[] vmList = {"CCC", "HLES", "GLES"};
+        String[] schedulerList = {"CompletelyShared", "SpaceShared, SpaceSharedDropTimeOut", "TimeShared"};
 
         for(String scheduler : schedulerList){
             for(String vm : vmList){
@@ -174,6 +174,7 @@ public class DheaHomeAutomation {
 
         System.out.println("=====================================");
         System.out.println("VM Type = " + vm);
+        System.out.println("CloudletScheduler: " + scheduler);
         System.out.println("No. of Cloudlets = " + numberOfCloudlets);
         System.out.println("-------------------------------------");
 
