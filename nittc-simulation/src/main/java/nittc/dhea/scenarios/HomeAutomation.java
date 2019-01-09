@@ -143,8 +143,8 @@ public class HomeAutomation {
     private void createAndSubmitCloudlets(Vm vm, double submissionDelay) {
 
         Random random = new Random();
-        int rangeMin = 60;
-        int rangeMax = 60;
+        int rangeMin = 30;
+        int rangeMax = 30;
         int randomNumberOfCloudlets = random.nextInt((rangeMax - rangeMin) + 1) + rangeMin;
         List<Cloudlet> list = new ArrayList<>(randomNumberOfCloudlets);
 
@@ -267,8 +267,8 @@ public class HomeAutomation {
 
     public double getRandomGeneratedDelay(){
         Random random = new Random();
-        double rangeMin = 0.0;
-        double rangeMax = 0.9;
+        double rangeMin = 0.01;
+        double rangeMax = 0.99;
         return Double.parseDouble(new DecimalFormat("####.##").format(rangeMin + (rangeMax - rangeMin) * random.nextDouble()));
     }
 }

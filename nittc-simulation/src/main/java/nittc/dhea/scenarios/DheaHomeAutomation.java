@@ -92,17 +92,21 @@ public class DheaHomeAutomation {
 
         List<DheaHomeAutomation> simulationList = new ArrayList<>();
 
+        int[] numbers = {26,44,31,24,21,45,14,29,57,46,48,20,40,17,36,10,28,54,10,23,45,21,39,22,4,37,60,47,24,36};
         for(double time = 1; time <= 30; time++){
             Random random = new Random();
             int rangeMin = 1;
             int rangeMax = 60;
             int randomNumberOfCloudlets = random.nextInt((rangeMax - rangeMin) + 1) + rangeMin;
-            numberOfCloudlets.put(time, randomNumberOfCloudlets);
+            //{1.0=26, 2.0=44, 3.0=31, 4.0=24, 5.0=21, 6.0=45, 7.0=14, 8.0=29, 9.0=57, 10.0=46, 11.0=48, 12.0=20,
+            // 13.0=40, 14.0=17, 15.0=36, 16.0=10, 17.0=28, 18.0=54, 19.0=10, 20.0=23, 21.0=45, 22.0=21, 23.0=39,
+            // 24.0=22, 25.0=4, 26.0=37, 27.0=60, 28.0=47, 29.0=24, 30.0=36}
+            numberOfCloudlets.put(time, numbers[(int)time-1]);
         }
 
 
         String[] vmList = {"CCC", "HLES", "GLES"};
-        String[] schedulerList = {"CompletelyFair", "SpaceShared", "SpaceSharedDropTimeOut"};
+        String[] schedulerList = {"CompletelyFair"};
 
         for(String scheduler : schedulerList){
             for(String vm : vmList){
@@ -165,8 +169,8 @@ public class DheaHomeAutomation {
     }
 
     private void printResults() {
-        //new CloudletsTableBuilder(broker.getCloudletFinishedList()).build();
-        //new DheaResultTableBuilder(broker.getCloudletCreatedList()).build();
+        new CloudletsTableBuilder(broker.getCloudletFinishedList()).build();
+        new DheaResultTableBuilder(broker.getCloudletCreatedList()).build();
         //new CloudletsTableBuilder(broker.getCloudletCreatedList()).build();
 
         List<Cloudlet> cloudletFinishedList = broker.getCloudletFinishedList();
@@ -176,7 +180,7 @@ public class DheaHomeAutomation {
         System.out.println("VM Type = " + vm);
         System.out.println("CloudletScheduler: " + scheduler);
         System.out.println("No. of Cloudlets = " + numberOfCloudlets);
-        System.out.println("-------------------------------------");
+        //System.out.println("-------------------------------------");
 
         /**
          * Average Execution Time

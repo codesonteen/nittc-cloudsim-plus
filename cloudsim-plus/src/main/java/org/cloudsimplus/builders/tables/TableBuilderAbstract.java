@@ -26,6 +26,7 @@ package org.cloudsimplus.builders.tables;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import static java.util.Objects.requireNonNull;
@@ -94,6 +95,18 @@ public abstract class TableBuilderAbstract<T> {
     }
 
     /**
+     * Access a column at a given position in order to perform some configuration on it.
+     * @param index index of the column to access
+     * @param consumer a {@link Consumer} that will be called to use the column accessed at the requested position.
+     *                 The consumer should provide the code you want to be performed over that column.
+     * @return this TableBuilder object
+     */
+    public final TableBuilderAbstract<T> column(final int index, Consumer<TableColumn> consumer){
+        consumer.accept(table.getColumns().get(index));
+        return this;
+    }
+
+    /**
      * Sets the {@link Table} used to build the table with Cloudlet Data.
      * The default table builder is {@link TextTable}.
      * @param table the  {@link Table} to set
@@ -112,6 +125,30 @@ public abstract class TableBuilderAbstract<T> {
      */
     public TableBuilderAbstract<T> addColumn(final TableColumn col, final Function<T, Object> dataFunction){
         return addColumn(getTable().getColumns().size(), col, dataFunction);
+    }
+
+    /**
+     * Removes columns from given positions.
+     * @param indexes the indexes of the columns to remove
+     * @return
+     * @see #removeColumn(int)
+     */
+    public final TableBuilderAbstract<T> removeColumn(final int ...indexes){
+        for (final int i : indexes) {
+            removeColumn(i);
+        }
+        return this;
+    }
+
+    /**
+     * Removes a column from a given position.
+     * @param index the index of the column to remove
+     * @return
+     * @see #removeColumn(int...)
+     */
+    public final TableBuilderAbstract<T> removeColumn(final int index){
+        getTable().getColumns().remove(index);
+        return this;
     }
 
     /**

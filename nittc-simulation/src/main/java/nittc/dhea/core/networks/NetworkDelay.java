@@ -34,7 +34,7 @@ public class NetworkDelay {
         if(rate == 0){
             throw new IllegalArgumentException("Rate can not be zero. Divide by zero cause infinite delay");
         }
-        return length / rate;
+        return Double.parseDouble(new DecimalFormat("####.##").format(length / rate));
     }
 
     /**
@@ -55,7 +55,7 @@ public class NetworkDelay {
     }
 
     public Double getTotalDelay(){
-        return Double.parseDouble(new DecimalFormat("####.##").format(Math.ceil(getPropogationDelay(0) + getTransmissionDelay() + getQueueingDelay() + getProcessingDelay())));
+        return Double.parseDouble(new DecimalFormat("####.####").format(getPropogationDelay(0) + getTransmissionDelay() + getQueueingDelay() + getProcessingDelay()));
     }
 
     public String toString(){

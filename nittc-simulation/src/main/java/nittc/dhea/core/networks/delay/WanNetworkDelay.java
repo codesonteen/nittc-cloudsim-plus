@@ -15,10 +15,10 @@ public class WanNetworkDelay extends NetworkDelay {
         Random random = new Random();
         double rangeMin = 0.0020;
         double rangeMax = 0.0060;
-        return Double.parseDouble(new DecimalFormat("####.##").format(Math.ceil(rangeMin + (rangeMax - rangeMin) * random.nextDouble())));
+        return Double.parseDouble(new DecimalFormat("####.####").format(rangeMin + (rangeMax - rangeMin) * random.nextDouble()));
     }
 
     public Double getTotalDelay(){
-        return Double.parseDouble(new DecimalFormat("####.##").format(Math.ceil(getPropogationDelay() + getTransmissionDelay() + getQueueingDelay() + getProcessingDelay())));
+        return Double.parseDouble(new DecimalFormat("####.####").format(getPropogationDelay() + getTransmissionDelay() + getQueueingDelay() + getProcessingDelay()));
     }
 }

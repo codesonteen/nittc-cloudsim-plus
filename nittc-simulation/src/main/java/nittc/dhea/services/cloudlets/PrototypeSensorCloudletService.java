@@ -48,7 +48,7 @@ public class PrototypeSensorCloudletService extends CloudletService {
                     .setVm(vm);
 
                 double randomGeneratedTime = getRandomGeneratedDelay();
-                cloudlet.setGeneratedTime(time /*+ randomGeneratedTime*/);
+                cloudlet.setGeneratedTime(time + randomGeneratedTime);
 
                 list.add(cloudlet);
                 getDatacenterBroker().submitCloudletList(list, time + randomGeneratedTime + getNetworkDelay().setLength(0.1).getTotalDelay());

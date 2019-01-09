@@ -15,7 +15,7 @@ public class NoNetworkDelay extends NetworkDelay {
         Random random = new Random();
         double rangeMin = 0.0000;
         double rangeMax = 0.0000;
-        return Double.parseDouble(new DecimalFormat("####.##").format(Math.ceil(rangeMin + (rangeMax - rangeMin) * random.nextDouble())));
+        return Double.parseDouble(new DecimalFormat("####.####").format(rangeMin + (rangeMax - rangeMin) * random.nextDouble()));
     }
 
     @Override
@@ -29,6 +29,6 @@ public class NoNetworkDelay extends NetworkDelay {
     }
 
     public Double getTotalDelay(){
-        return Double.parseDouble(new DecimalFormat("####.##").format(Math.ceil(getPropogationDelay() + getTransmissionDelay() + getQueueingDelay() + getProcessingDelay())));
+        return Double.parseDouble(new DecimalFormat("####.####").format(getPropogationDelay() + getTransmissionDelay() + getQueueingDelay() + getProcessingDelay()));
     }
 }
