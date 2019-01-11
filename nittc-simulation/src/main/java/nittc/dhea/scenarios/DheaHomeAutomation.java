@@ -100,19 +100,20 @@ public class DheaHomeAutomation {
         String[] schedulerList = {"CompletelyFair", "SpaceShared", "SpaceSharedDropTimeOut"};
         int[] numberOfCloudletsPerSecond = {1,2,4,6,8,10,12,14,16};
 
-        for(String scheduler : schedulerList){
-            for(String vm : vmList){
-                for(int number : numberOfCloudletsPerSecond){
-                    Random random = new Random();
-                    HashMap<Double, Integer> numberOfCloudlets = new LinkedHashMap<>();
-                    for(double time = 1; time <= 30; time++){
-                        int rangeMin = 1;
-                        int rangeMax = 10;
-                        int randomNumberOfCloudlets = random.nextInt((rangeMax - rangeMin) + 1) + rangeMin;
-                        //numberOfCloudlets.put(time, randomNumberOfCloudlets);
-                        //numberOfCloudlets.put(time, numbers[(int)time - 1]);)
-                        numberOfCloudlets.put(time, number);
-                    }
+
+        for(int number : numberOfCloudletsPerSecond){
+            Random random = new Random();
+            HashMap<Double, Integer> numberOfCloudlets = new LinkedHashMap<>();
+            for(double time = 1; time <= 30; time++){
+                int rangeMin = 1;
+                int rangeMax = 10;
+                int randomNumberOfCloudlets = random.nextInt((rangeMax - rangeMin) + 1) + rangeMin;
+                //numberOfCloudlets.put(time, randomNumberOfCloudlets);
+                //numberOfCloudlets.put(time, numbers[(int)time - 1]);)
+                numberOfCloudlets.put(time, number);
+            }
+            for(String scheduler : schedulerList){
+                for(String vm : vmList){
                     simulationList.add(
                         new DheaHomeAutomation(30, numberOfCloudlets, vm, scheduler)
                     );
