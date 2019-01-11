@@ -13,12 +13,12 @@ public class WanNetworkDelay extends NetworkDelay {
 
     public Double getPropogationDelay(){
         Random random = new Random();
-        double rangeMin = 0.0020;
-        double rangeMax = 0.0060;
-        return Double.parseDouble(new DecimalFormat("####.####").format(rangeMin + (rangeMax - rangeMin) * random.nextDouble()));
+        double rangeMin = 0.020;
+        double rangeMax = 0.060;
+        return rangeMin + (rangeMax - rangeMin) * random.nextDouble();
     }
 
     public Double getTotalDelay(){
-        return Double.parseDouble(new DecimalFormat("####.####").format(getPropogationDelay() + getTransmissionDelay() + getQueueingDelay() + getProcessingDelay()));
+        return getPropogationDelay() + getTransmissionDelay() + getQueueingDelay() + getProcessingDelay();
     }
 }

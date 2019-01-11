@@ -39,7 +39,7 @@ public class ObjectDetectionCloudletService extends CloudletService {
                     .setOutputSize(outputSize)
                     .setUtilizationModelCpu(new UtilizationModelRelative(1))
                     .setUtilizationModelRam(new UtilizationModelAbsolute(128))
-                    .setUtilizationModelBw(new UtilizationModelAbsolute(2))
+                    .setUtilizationModelBw(new UtilizationModelAbsolute(1000))
                     .setVm(vm);
 
                 double randomGeneratedTime = getRandomGeneratedDelay();

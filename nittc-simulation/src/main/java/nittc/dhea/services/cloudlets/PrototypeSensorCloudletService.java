@@ -31,7 +31,7 @@ public class PrototypeSensorCloudletService extends CloudletService {
     public void createAndSubmitCloudlets(Vm vm) {
         long fileSize = 10;
         long outputSize = 10;
-        long length = 200; //in number of Million Instructions (MI)
+        long length = 100; //in number of Million Instructions (MI)
         int pesNumber = 1;
 
         long cloudletId = 1;
@@ -44,14 +44,14 @@ public class PrototypeSensorCloudletService extends CloudletService {
                     .setOutputSize(outputSize)
                     .setUtilizationModelCpu(new UtilizationModelRelative(1))
                     .setUtilizationModelRam(new UtilizationModelAbsolute(32))
-                    .setUtilizationModelBw(new UtilizationModelAbsolute(0.1))
+                    .setUtilizationModelBw(new UtilizationModelAbsolute(10))
                     .setVm(vm);
 
                 double randomGeneratedTime = getRandomGeneratedDelay();
                 cloudlet.setGeneratedTime(time + randomGeneratedTime);
 
                 list.add(cloudlet);
-                getDatacenterBroker().submitCloudletList(list, time + randomGeneratedTime + getNetworkDelay().setLength(0.1).getTotalDelay());
+                getDatacenterBroker().submitCloudletList(list, time + randomGeneratedTime + getNetworkDelay().setLength(0.001).getTotalDelay());
                 //getDatacenterBroker().submitCloudletList(list, time);
             }
         }

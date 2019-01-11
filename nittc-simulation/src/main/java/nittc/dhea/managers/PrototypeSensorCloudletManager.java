@@ -7,12 +7,12 @@ import nittc.dhea.services.cloudlets.PrototypeSensorCloudletService;
 
 import java.util.HashMap;
 
-public class PrototypeSensorSmartScarecrowCloudletManager implements CloudletManager {
+public class PrototypeSensorCloudletManager implements CloudletManager {
 
     private Vm vm;
     private PrototypeSensorCloudletService cloudletService;
 
-    public PrototypeSensorSmartScarecrowCloudletManager(Vm vm, double timeLimit, HashMap numberOfCloudlets){
+    public PrototypeSensorCloudletManager(Vm vm, double timeLimit, HashMap numberOfCloudlets){
         this.vm = vm;
         this.cloudletService = new PrototypeSensorCloudletService();
         this.cloudletService.setTimeLimit(timeLimit);

@@ -12,6 +12,10 @@ public class NetworkDelay {
         return this;
     }
 
+    public double getLength(){
+        return length;
+    }
+
     public void setRate(double rate){
         this.rate = rate;
     }
@@ -34,7 +38,7 @@ public class NetworkDelay {
         if(rate == 0){
             throw new IllegalArgumentException("Rate can not be zero. Divide by zero cause infinite delay");
         }
-        return Double.parseDouble(new DecimalFormat("####.##").format(length / rate));
+        return length / rate;
     }
 
     /**
@@ -55,7 +59,7 @@ public class NetworkDelay {
     }
 
     public Double getTotalDelay(){
-        return Double.parseDouble(new DecimalFormat("####.####").format(getPropogationDelay(0) + getTransmissionDelay() + getQueueingDelay() + getProcessingDelay()));
+        return getPropogationDelay(0) + getTransmissionDelay() + getQueueingDelay() + getProcessingDelay();
     }
 
     public String toString(){

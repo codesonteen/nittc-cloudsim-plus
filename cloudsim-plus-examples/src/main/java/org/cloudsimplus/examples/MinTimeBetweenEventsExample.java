@@ -91,7 +91,7 @@ public class MinTimeBetweenEventsExample {
      *
      * @see CloudSim#getMinTimeBetweenEvents()
      */
-    private static final double MIN_TIME_BETWEEN_EVENTS = 0.1;
+    private static final double MIN_TIME_BETWEEN_EVENTS = 0.01;
 
     private static final int HOST_PES_NUMBER = 4;
     private static final int VM_PES_NUMBER = HOST_PES_NUMBER;
@@ -110,7 +110,7 @@ public class MinTimeBetweenEventsExample {
     }
 
     private MinTimeBetweenEventsExample() {
-        Log.setLevel(Level.WARN);
+        Log.setLevel(Level.INFO);
 
         System.out.println("Starting " + getClass().getSimpleName());
         simulation = new CloudSim(MIN_TIME_BETWEEN_EVENTS);

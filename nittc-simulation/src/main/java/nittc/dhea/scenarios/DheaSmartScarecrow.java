@@ -41,7 +41,7 @@ public class DheaSmartScarecrow {
 
         List<DheaSmartScarecrow> simulationList = new ArrayList<>();
 
-        int[] numberOfCloudletsList = {2};
+        int[] numberOfCloudletsList = {1,2};
         String[] vmList = {"CCC", "HLES", "GLES"};
         String[] schedulerList = {"SpaceShared"};
 

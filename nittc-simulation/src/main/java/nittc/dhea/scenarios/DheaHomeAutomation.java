@@ -31,10 +31,9 @@ import org.cloudbus.cloudsim.brokers.DatacenterBroker;
 import org.cloudbus.cloudsim.brokers.DatacenterBrokerSimple;
 import org.cloudbus.cloudsim.cloudlets.Cloudlet;
 import org.cloudbus.cloudsim.core.CloudSim;
-import org.cloudsimplus.builders.tables.CloudletsTableBuilder;
 import org.cloudsimplus.util.Log;
 import nittc.dhea.managers.DatacenterManager;
-import nittc.dhea.managers.PrototypeSensorSmartScarecrowCloudletManager;
+import nittc.dhea.managers.PrototypeSensorCloudletManager;
 import nittc.dhea.managers.VirtualMachineManager;
 
 import java.text.DecimalFormat;
@@ -73,7 +72,7 @@ public class DheaHomeAutomation {
     private final DatacenterBroker broker;
     private final CloudSim simulation;
     private final double simulationTimeLimit;
-    private static HashMap<Double, Integer> numberOfCloudlets = new LinkedHashMap<>();
+    private HashMap<Double, Integer> numberOfCloudlets;
     private final String vm;
     private final String scheduler;
     private DatacenterManager datacenterManager;
@@ -94,24 +93,30 @@ public class DheaHomeAutomation {
 
         List<DheaHomeAutomation> simulationList = new ArrayList<>();
 
-        //int[] numbers = {26,44,31,24,21,45,14,29,57,46,48,20,40,17,36,10,28,54,10,23,45,21,39,22,4,37,60,47,24,36};
-        Random random = new Random();
-        for(double time = 1; time <= 30; time++){
-            int rangeMin = 1;
-            int rangeMax = 60;
-            int randomNumberOfCloudlets = random.nextInt((rangeMax - rangeMin) + 1) + rangeMin;
-            numberOfCloudlets.put(time, randomNumberOfCloudlets);
-        }
+        int[] numbers = {26,44,31,24,21,45,14,29,57,46,48,20,40,17,36,10,28,54,10,23,45,21,39,22,4,37,60,47,24,36};
 
 
         String[] vmList = {"CCC", "HLES", "GLES"};
         String[] schedulerList = {"CompletelyFair", "SpaceShared", "SpaceSharedDropTimeOut"};
+        int[] numberOfCloudletsPerSecond = {1,2,4,6,8,10,12,14,16};
 
         for(String scheduler : schedulerList){
             for(String vm : vmList){
-                simulationList.add(
-                    new DheaHomeAutomation(30, numberOfCloudlets, vm, scheduler)
-                );
+                for(int number : numberOfCloudletsPerSecond){
+                    Random random = new Random();
+                    HashMap<Double, Integer> numberOfCloudlets = new LinkedHashMap<>();
+                    for(double time = 1; time <= 30; time++){
+                        int rangeMin = 1;
+                        int rangeMax = 10;
+                        int randomNumberOfCloudlets = random.nextInt((rangeMax - rangeMin) + 1) + rangeMin;
+                        //numberOfCloudlets.put(time, randomNumberOfCloudlets);
+                        //numberOfCloudlets.put(time, numbers[(int)time - 1]);)
+                        numberOfCloudlets.put(time, number);
+                    }
+                    simulationList.add(
+                        new DheaHomeAutomation(30, numberOfCloudlets, vm, scheduler)
+                    );
+                }
             }
         }
 
@@ -144,7 +149,7 @@ public class DheaHomeAutomation {
         simulationName = "Object Recognition " + scheduler + " on " + vm;
         simulationDescription = "Process Object Recognition on Cloud, Cloud VM using SpaceSharedScheduler.";
 
-        decimalFormat = new DecimalFormat();
+        decimalFormat = new DecimalFormat("####.####");
     }
 
     private void run() {
@@ -159,7 +164,7 @@ public class DheaHomeAutomation {
         virtualMachineManager.createVirtualMachines();
         virtualMachineManager.submitVirtualMachines();
 
-        cloudletManager = new PrototypeSensorSmartScarecrowCloudletManager(virtualMachineManager.getVm(vm), simulationTimeLimit, numberOfCloudlets);
+        cloudletManager = new PrototypeSensorCloudletManager(virtualMachineManager.getVm(vm), simulationTimeLimit, numberOfCloudlets);
         cloudletManager.setDatacenterBroker(broker);
         cloudletManager.setServerTier(vm);
         cloudletManager.createAndSubmitCloudlets();
@@ -178,26 +183,36 @@ public class DheaHomeAutomation {
         System.out.println("=====================================");
         System.out.println("VM Type = " + vm);
         System.out.println("CloudletScheduler: " + scheduler);
-        System.out.println("No. of Cloudlets = " + numberOfCloudlets);
+        System.out.println("No. of Cloudlets = " + numberOfCloudlets.get(1.0));
         //System.out.println("-------------------------------------");
+
+        /**
+         * Average Network Delay
+         */
+        double sumOfNetworkDelay = 0;
 
         /**
          * Average Execution Time
          */
         double sumOfExecutionTime = 0;
-        for(Cloudlet cloudlet : cloudletFinishedList){
-            sumOfExecutionTime += cloudlet.getActualCpuTime();
-        }
-        double avgOfExecutionTime = sumOfExecutionTime / cloudletFinishedList.size();
-        System.out.println("Average Execution Time = " + decimalFormat.format(avgOfExecutionTime));
 
         /**
          * Average Total Time
          */
         double sumOfTotalTime = 0;
+
         for(Cloudlet cloudlet : cloudletFinishedList){
+            sumOfNetworkDelay += (cloudlet.getSubmissionDelay() - ((DheaCloudlet) cloudlet).getGeneratedTime());
+            sumOfExecutionTime += cloudlet.getActualCpuTime();
             sumOfTotalTime += (cloudlet.getFinishTime() - ((DheaCloudlet) cloudlet).getGeneratedTime());
         }
+
+        double avgOfNetworkDelay = sumOfNetworkDelay / cloudletFinishedList.size();
+        System.out.println("Average Network Delay = " + decimalFormat.format(avgOfNetworkDelay));
+
+        double avgOfExecutionTime = sumOfExecutionTime / cloudletFinishedList.size();
+        System.out.println("Average Execution Time = " + decimalFormat.format(avgOfExecutionTime));
+
         double avgOfTotalTime = sumOfTotalTime / cloudletFinishedList.size();
         System.out.println("Average Total Time = " + decimalFormat.format(avgOfTotalTime));
 

@@ -27,6 +27,6 @@ public abstract class CloudletService extends SimulationService {
         Random random = new Random();
         double rangeMin = 0.0;
         double rangeMax = 0.9;
-        return Double.parseDouble(new DecimalFormat("####.##").format(rangeMin + (rangeMax - rangeMin) * random.nextDouble()));
+        return rangeMin + (rangeMax - rangeMin) * random.nextDouble();
     }
 }
