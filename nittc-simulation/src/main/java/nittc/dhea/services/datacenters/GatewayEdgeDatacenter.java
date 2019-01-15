@@ -16,7 +16,7 @@ public class GatewayEdgeDatacenter extends DatacenterService {
         hostService.setPeList(4, 2458);
         hostService.setRam(1024);
         hostService.setStorage(32000);
-        hostService.setBandwidth(20);
+        hostService.setBandwidth(1000);
         hostService.create();
     }
 }

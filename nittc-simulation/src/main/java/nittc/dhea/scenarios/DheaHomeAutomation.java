@@ -89,7 +89,7 @@ public class DheaHomeAutomation {
      * @param args command line parameters
      */
     public static void main(String[] args) {
-        Log.setLevel(Level.OFF);
+        Log.setLevel(Level.DEBUG);
 
         List<DheaHomeAutomation> simulationList = new ArrayList<>();
 
@@ -98,7 +98,7 @@ public class DheaHomeAutomation {
 
         String[] vmList = {"CCC", "HLES", "GLES"};
         String[] schedulerList = {"SpaceShared"};
-        int[] numberOfCloudletsPerSecond = {1,2,4,8,16,32,64,128};
+        int[] numberOfCloudletsPerSecond = {1,2,4,8,16,32,64,128,256};
 
         for(int number : numberOfCloudletsPerSecond){
             Random random = new Random();

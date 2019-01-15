@@ -5,12 +5,15 @@ import org.cloudbus.cloudsim.allocationpolicies.VmAllocationPolicy;
 import org.cloudbus.cloudsim.allocationpolicies.VmAllocationPolicyAbstract;
 import org.cloudbus.cloudsim.hosts.Host;
 import org.cloudbus.cloudsim.vms.Vm;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
 public class GatewayEdgeVmAllocationPolicy extends VmAllocationPolicyAbstract {
+    private static final Logger LOGGER = LoggerFactory.getLogger(GatewayEdgeVmAllocationPolicy.class.getSimpleName());
     /**
      * Instantiates a VmAllocationPolicySimple.
      */
@@ -35,6 +38,7 @@ public class GatewayEdgeVmAllocationPolicy extends VmAllocationPolicyAbstract {
         if(vm instanceof SimpleGatewayEdgeVm){
             Host host = getHostList().get(0);
             result = host.createVm(vm);
+            LOGGER.debug("VM " + vm.getId() + " has been created in datacenter " + getDatacenter().getName());
         }
         else{
             //System.out.println("[CloudVmAllocationPolicy] The requested VM " + vm + " is not Cloud VM, Skipping");
