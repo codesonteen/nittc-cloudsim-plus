@@ -13,7 +13,7 @@ public class GatewayEdgeDatacenter extends DatacenterService {
     @Override
     protected void createHosts() {
         hostService = new HostService();
-        hostService.setPeList(2, 2800);
+        hostService.setPeList(4, 2458);
         hostService.setRam(1024);
         hostService.setStorage(32000);
         hostService.setBandwidth(20);

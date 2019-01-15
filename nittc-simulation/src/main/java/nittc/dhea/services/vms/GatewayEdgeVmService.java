@@ -10,7 +10,7 @@ public class GatewayEdgeVmService extends VmService {
     }
 
     public void create(){
-        createVirtualMachine(1, 1400, 2, 1024, 20, 32000);
+        createVirtualMachine(1, 600, 4, 1024, 1000, 32000);
     }
 
     protected void createVirtualMachine(int id, long mips, int pesNumber, long ram, long bandwidth, long storage) {
